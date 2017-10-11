@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <style media="screen">
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    @keyframes pulse {
+      to { transform: scale(1.1, 1.1); }
+    }
+
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+      font-size: 16px;
+      background-color: #00ac8d;
+    }
+
+    .wrapper {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .wrapper .wrapper-title {
+      color: white;
+      font-size: 4rem;
+      font-family: sans-serif;
+    }
+
+    @media (max-width: 750px) {
+      .wrapper .wrapper-title {
+        font-size: 2.5rem;
+      }
+    }
+    @media (max-width: 450px) {
+      .wrapper .wrapper-title {
+        font-size: 2rem;
+      }
+    }
+
+    .wrapper.lightoff {
+      background-color: #ff3399;
+    }
+
+    .lightoff-title {
+      animation: pulse .5s linear alternate infinite;
+    }
+
+
+  </style>
+  <title>Anhembi Morumbi Talk</title>
+</head>
+<body>
+
+  <div class="wrapper">
+    <h1 class="wrapper-title">Anhembi Morumbi</h1>
+  </div>
+
+  <script src="https://code.createjs.com/createjs-2015.11.26.min.js"></script>
+  <script>
+    (function(window) {
+      'use strict';
+
+      window.addEventListener('deviceorientation', function(event) {
+        var maxToLiberateOMG = 150;
+        var audioContext = null;
+        createjs.Sound.registerSound('./omg.mp3', 'x');
+
+        if (event.gamma && (event.gamma.toFixed(2) * 2) >= maxToLiberateOMG) {
+          var wrapper = document.querySelector('.wrapper');
+          var title = document.querySelector('.wrapper-title');
+          wrapper.classList.add('lightoff');
+          title.classList.add('lightoff-title');
+          navigator.vibrate(500);
+          audioContext = createjs.Sound.play('x');
+          audioContext = null;
+        }
+      }, false);
+    })(window, undefined)
+  </script>
+</body>
+</html>
